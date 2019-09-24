@@ -3,7 +3,7 @@
 这是 **hashcat** 的一个 fork，**hashcat** 使用gpu，速度非常快，由于算法都写在相应模块中，所以不支持自定义算法类型，本fork主要是为解决自定义算法类型。
 
 ## 注意事项 ##
-由于 **hashcat** 会进行自检，所以需要去掉，否则需要加--self-test-disable选项，为了方便，已去除。具体在 hashcat.c 文件第702行的 outer_loop 函数中，将if语句块注释掉。
+由于 **hashcat** 会进行自检，所以需要去掉，否则需要加 --self-test-disable 选项，为了方便，已去除。具体在 hashcat.c 文件第702行的 outer_loop 函数中，将if语句块注释掉。
 
 ## *hashcat* ##
 
