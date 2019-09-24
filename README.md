@@ -6,7 +6,11 @@
 
 由于 **hashcat** 会进行自检，所以需要去掉相关检查代码，否则需要加 **--self-test-disable** 选项，为了方便，已去除。具体在 **hashcat.c** 文件第**702**行的 **outer_loop** 函数中，将**if**语句块注释掉。
 
-## 函数标记 ##
+## 修改标记 ##
+
+内核模块文件位于 **OpenCL文件夹下**
+
+修改算法可能还需要修改 **src/modules** 文件夹下的对应文件
 
 检查选项 **scr/user_options.c -> user_options_check_files**
 
@@ -17,6 +21,8 @@
 ```
 generate_source_kernel_filename (false, ATTACK_EXEC_OUTSIDE_KERNEL, ATTACK_KERN_STRAIGHT, 400, 0, folder_config->shared_dir, kernelfile);
 ```
+
+##  当然如果有能力的可以不用修改模块，直接添加模块，我现在还没去详细研究。 ##
 
 ## *hashcat* ##
 
