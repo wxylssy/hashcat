@@ -12,7 +12,7 @@
 
 内核载入 **scr/interface.c -> hashconfig_init**
 
-**scr/user_options.c** 第**2568** 行是载入基础内核模块：
+**scr/user_options.c** 第**2568**行是载入基础内核模块：
 
 ```
 generate_source_kernel_filename (false, ATTACK_EXEC_OUTSIDE_KERNEL, ATTACK_KERN_STRAIGHT, 400, 0, folder_config->shared_dir, kernelfile);
