@@ -1,3 +1,11 @@
+## 说明 ##
+
+这是 **hashcat** 的一个 fork，**hashcat** 使用gpu，速度非常快，由于算法都写在相应模块中，所以不支持自定义算法类型，本fork主要是为解决自定义算法类型。
+
+## 注意事项 ##
+由于 **hashcat** 会进行自检，所以需要去掉，不去掉也可以，需要加--self-test-disable选项，为了方便，以去除。
+具体在 hashcat.c 文件第702行的 outer_loop 函数中，将if语句块注释掉。
+
 ## *hashcat* ##
 
 **hashcat** is the world's fastest and most advanced password recovery utility, supporting five unique modes of attack for over 200 highly-optimized hashing algorithms. hashcat currently supports CPUs, GPUs, and other hardware accelerators on Linux, Windows, and macOS, and has facilities to help enable distributed password cracking.
