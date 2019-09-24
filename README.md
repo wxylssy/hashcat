@@ -11,9 +11,9 @@
 
 scr/user_options.c 第2568行是载入基础内核模块：
 
-'''
+```
 generate_source_kernel_filename (false, ATTACK_EXEC_OUTSIDE_KERNEL, ATTACK_KERN_STRAIGHT, 400, 0, folder_config->shared_dir, kernelfile);
-'''
+```
 
 ## *hashcat* ##
 
