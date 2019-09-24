@@ -8,13 +8,13 @@
 
 ## 修改标记 ##
 
-内核模块文件位于 **OpenCL文件夹下**
+内核模块文件位于 **OpenCL 文件夹下**
 
 修改算法可能还需要修改 **src/modules** 文件夹下的对应文件
 
-检查选项 **scr/user_options.c -> user_options_check_files**
+检查选项函数 **scr/user_options.c -> user_options_check_files**
 
-内核载入 **scr/interface.c -> hashconfig_init**
+内核载入函数 **scr/interface.c -> hashconfig_init**
 
 **scr/user_options.c** 第**2568**行是载入基础内核模块：
 
