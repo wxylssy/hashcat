@@ -3,10 +3,13 @@
 这是 **hashcat** 的一个 fork，**hashcat** 是一个基于OpenCL的密码哈希恢复程序，可使用GPU高速计算，速度非常快，由于算法都写在相应模块中，所以不支持自定义算法类型，本fork主要是为解决自定义算法类型。
 
 ## 注意事项 ##
+
 由于 **hashcat** 会进行自检，所以需要去掉相关检查代码，否则需要加 --self-test-disable 选项，为了方便，已去除。具体在 hashcat.c 文件第702行的 outer_loop 函数中，将if语句块注释掉。
 
 ## 函数标记 ##
+
 检查选项 scr/user_options.c -> user_options_check_files
+
 内核载入 scr/interface.c -> hashconfig_init
 
 scr/user_options.c 第2568行是载入基础内核模块：
