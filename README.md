@@ -4,7 +4,13 @@
 
 ## 注意事项 ##
 
-由于 **hashcat** 会进行自检，所以需要去掉相关检查代码，否则需要加 **--self-test-disable** 选项，为了方便，已去除。具体在 **hashcat.c** 文件第**702**行的 **outer_loop** 函数中，将**if**语句块注释掉。
+由于 **hashcat** 会进行自检，所以需要去掉相关检查代码，否则需要加 **--self-test-disable** 选项。具体在 **hashcat.c** 文件第**702**行的 **outer_loop** 函数中，将**if**语句块注释掉。或者在 **src/modules** 文件夹下找到对应模块，修改正确哈希完成自检：
+
+```
+static const char *ST_PASS        = "hashcat";
+static const char *ST_HASH = "63ec5f6113843f5d229e2d49c068d983a9670d02:57677783202322766743";
+```
+
 
 ## 修改标记 ##
 
@@ -12,9 +18,25 @@
 
 修改算法可能还需要修改 **src/modules** 文件夹下的对应文件
 
+注意内核文件中这样的转换方法，值是不一样的
+
+```
+    const u32x a1 = hc_swap32 (ctx1.h[0]);
+    const u32x b1 = hc_swap32 (ctx1.h[1]);
+    const u32x c1 = hc_swap32 (ctx1.h[2]);
+    const u32x d1 = hc_swap32 (ctx1.h[3]);
+```
+
+```
+    md5_update_vector_swap (&ctx1, w, pw_len);
+```
+
 检查选项函数 **scr/user_options.c -> user_options_check_files**
 
 内核载入函数 **scr/interface.c -> hashconfig_init**
+
+
+
 
 **scr/user_options.c** 第**2568**行是载入基础内核模块：
 
