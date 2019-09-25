@@ -4,7 +4,7 @@
 
 ## 注意事项 ##
 
-由于 **hashcat** 会进行自检，所以需要去掉相关检查代码，否则需要加 **--self-test-disable** 选项。具体在 **hashcat.c** 文件第**702**行的 **outer_loop** 函数中，将**if**语句块注释掉。或者在 **src/modules** 文件夹下找到对应模块，修改正确哈希完成自检：
+由于 **hashcat** 会进行自检，所以需要去掉相关检查代码，否则需要加 **--self-test-disable** 选项。具体在 **src/hashcat.c** 文件第 **702** 行的 **outer_loop** 函数中，将**if**语句块注释掉。或者在 **src/modules** 文件夹下找到对应模块，修改正确哈希完成自检。
 
 ```
 static const char *ST_PASS        = "hashcat";
@@ -13,6 +13,8 @@ static const char *ST_HASH = "63ec5f6113843f5d229e2d49c068d983a9670d02:576777832
 
 
 ## 修改标记 ##
+
+**hashcat** 对签名算法进行了大量优化，之所以速度快，但是给修改带来了很大困难，不能在内核模块中直接修改签名函数，因为数据是经过转化的。
 
 内核模块文件位于 **OpenCL** 文件夹下
 
