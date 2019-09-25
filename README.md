@@ -14,7 +14,7 @@ static const char *ST_HASH = "63ec5f6113843f5d229e2d49c068d983a9670d02:576777832
 
 ## 修改标记 ##
 
-内核模块文件位于 **OpenCL 文件夹下**
+内核模块文件位于 **OpenCL** 文件夹下
 
 修改算法可能还需要修改 **src/modules** 文件夹下的对应文件
 
