@@ -2,6 +2,8 @@
 
 这是 **hashcat** 的一个 fork，**hashcat** 是一个基于OpenCL的密码哈希恢复程序，可使用GPU高速计算，速度非常快，由于算法都写在相应模块中，所以不支持自定义算法类型，本fork主要是为解决自定义算法类型。
 
+支持的算法类型在这里：https://hashcat.net/wiki/doku.php?id=example_hashes
+
 ## 注意事项 ##
 
 由于 **hashcat** 会进行自检，所以需要去掉相关检查代码，否则需要加 **--self-test-disable** 选项。具体在 **src/hashcat.c** 文件第 **702** 行的 **outer_loop** 函数中，将**if**语句块注释掉。或者在 **src/modules** 文件夹下找到对应模块，修改正确哈希完成自检。
