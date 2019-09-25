@@ -22,6 +22,18 @@ static const char *ST_HASH = "63ec5f6113843f5d229e2d49c068d983a9670d02:576777832
 
 修改算法可能还需要修改 **src/modules** 文件夹下的对应文件
 
+读取和载入哈希文件在函数 module_hash_decode 中，token.token_cnt  = 2，是后面的附加数据，比如 $salt
+
+```
+  token.token_cnt  = 1;
+
+  token.len_min[0] = 32;
+  token.len_max[0] = 32;
+  token.attr[0]    = TOKEN_ATTR_VERIFY_LENGTH
+                   | TOKEN_ATTR_VERIFY_HEX;
+                   
+```
+
 注意内核文件中这样的转换方法，值是不一样的
 
 ```
