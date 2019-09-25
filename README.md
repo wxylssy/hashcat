@@ -40,7 +40,7 @@ static const char *ST_HASH = "63ec5f6113843f5d229e2d49c068d983a9670d02:576777832
 
 
 
-**scr/user_options.c** 第**2568**行是载入基础内核模块：
+**scr/user_options.c** 第 **2568** 行是载入一个固定模块，具体作用未分析：
 
 ```
 generate_source_kernel_filename (false, ATTACK_EXEC_OUTSIDE_KERNEL, ATTACK_KERN_STRAIGHT, 400, 0, folder_config->shared_dir, kernelfile);
