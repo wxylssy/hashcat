@@ -14,6 +14,21 @@
 
 模块文件在 **src/modules** 文件夹下
 
+模块文件对算法进行描述
+
+```
+//其中| OPTS_TYPE_PT_ADD80是在密码数据尾添加 0x80 结束标记，如果有salt是不添加的
+static const u64   OPTS_TYPE      = OPTS_TYPE_PT_GENERATE_LE
+                                  | OPTS_TYPE_PT_ADD80
+                                  | OPTS_TYPE_PT_ADDBITS14
+//部分算法在密码和salt数据都需要添加结束标记
+static const u64   OPTS_TYPE      = OPTS_TYPE_PT_GENERATE_LE
+                                  | OPTS_TYPE_PT_ADD80
+                                  | OPTS_TYPE_PT_ADDBITS14
+                                  | OPTS_TYPE_ST_ADD80
+                                  | OPTS_TYPE_ST_ADDBITS14;
+```
+
 读取和载入哈希文件在模块文件函数 **int module_hash_decode** 中
 
 ```
