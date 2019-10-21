@@ -16,25 +16,40 @@ static const char *ST_HASH = "63ec5f6113843f5d229e2d49c068d983a9670d02:576777832
 
 ## 修改标记 ##
 
-**hashcat** 对签名算法进行了大量优化，之所以速度快，但是给修改带来了很大困难，不能在内核模块中直接修改签名函数，因为数据是经过转化的。
+**hashcat** 对签名算法进行了大量优化，但是给修改带来了很大困难，不能在内核模块中直接修改签名函数，因为数据是经过转化的。
 
 内核模块文件位于 **OpenCL** 文件夹下
 
 修改算法可能还需要修改 **src/modules** 文件夹下的对应文件
 
-读取和载入哈希文件在函数 module_hash_decode 中，token.token_cnt  = 2，是后面的附加数据，比如 $salt
+读取和载入哈希文件在函数int module_hash_decode 中
 
 ```
+int module_hash_decode(...
+{
+...
+  //token.token_cnt  = 2，是后面的附加数据，比如 $salt
   token.token_cnt  = 1;
 
   token.len_min[0] = 32;
   token.len_max[0] = 32;
   token.attr[0]    = TOKEN_ATTR_VERIFY_LENGTH
                    | TOKEN_ATTR_VERIFY_HEX;
-                   
+                  
+  ...
+  //注意这里是 -O 参数，就是优化模式的时候字节是先减去了算法常量比如MD5M_A，在算法实现过程中返回的结果字节最后不需要加常量！
+  if (hashconfig->opti_type & OPTI_TYPE_OPTIMIZED_KERNEL)
+  {
+    digest[0] -= MD5M_A;
+    digest[1] -= MD5M_B;
+    digest[2] -= MD5M_C;
+    digest[3] -= MD5M_D;
+  }
+...
+}
 ```
 
-注意内核文件中这样的转换方法，值是不一样的
+注意内核文件中这样的转换方法 hc_swap32 函数
 
 ```
     const u32x a1 = hc_swap32 (ctx1.h[0]);
@@ -43,16 +58,19 @@ static const char *ST_HASH = "63ec5f6113843f5d229e2d49c068d983a9670d02:576777832
     const u32x d1 = hc_swap32 (ctx1.h[3]);
 ```
 
+可以打印字节看结果是否正确
 ```
-    md5_update_vector_swap (&ctx1, w, pw_len);
+printf("\nmd5: %08x %08x %08x %08x \n",hc_swap32(a),hc_swap32(d),hc_swap32(c),hc_swap32(b));
+//或者
+printf("\nmd5: %08x %08x %08x %08x \n",a,d,c,b);
+
+//打印数据
+printf("\nmd5data1: %08x %08x %08x %08x %08x %08x %08x %08x %08x %08x %08x %08x %08x %08x %08x %08x \n",w0_t,w1_t,w2_t,w3_t,w4_t,w5_t,w6_t,w7_t,w8_t,w9_t,wa_t,wb_t,wc_t,wd_t,we_t,wf_t);
 ```
 
 检查选项函数 **scr/user_options.c -> user_options_check_files**
 
 内核载入函数 **scr/interface.c -> hashconfig_init**
-
-
-
 
 **scr/user_options.c** 第 **2568** 行是载入一个固定模块，具体作用未分析：
 
