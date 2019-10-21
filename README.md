@@ -6,13 +6,6 @@
 
 ## 注意事项 ##
 
-由于 **hashcat** 会进行自检，所以需要去掉相关检查代码，否则需要加 **--self-test-disable** 选项。具体在 **src/hashcat.c** 文件第 **702** 行的 **outer_loop** 函数中，将**if**语句块注释掉。或者在 **src/modules** 文件夹下找到对应模块，修改正确哈希完成自检。
-
-```
-static const char *ST_PASS        = "hashcat";
-static const char *ST_HASH = "63ec5f6113843f5d229e2d49c068d983a9670d02:57677783202322766743";
-```
-
 
 ## 修改标记 ##
 
@@ -66,6 +59,13 @@ printf("\nmd5: %08x %08x %08x %08x \n",a,d,c,b);
 
 //打印数据
 printf("\nmd5data1: %08x %08x %08x %08x %08x %08x %08x %08x %08x %08x %08x %08x %08x %08x %08x %08x \n",w0_t,w1_t,w2_t,w3_t,w4_t,w5_t,w6_t,w7_t,w8_t,w9_t,wa_t,wb_t,wc_t,wd_t,we_t,wf_t);
+```
+
+由于 **hashcat** 会进行自检，在测试中需要去掉相关检查代码，否则需要加 **--self-test-disable** 选项。具体在 **src/hashcat.c** 文件第 **702** 行的 **outer_loop** 函数中，将**if**语句块注释掉。算法修改完成后在 **src/modules** 文件夹下找到对应模块，修改正确哈希完成自检。
+
+```
+static const char *ST_PASS        = "hashcat";
+static const char *ST_HASH = "63ec5f6113843f5d229e2d49c068d983a9670d02:57677783202322766743";
 ```
 
 检查选项函数 **scr/user_options.c -> user_options_check_files**
