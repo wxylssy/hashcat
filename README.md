@@ -8,11 +8,13 @@
 
 **hashcat** 对签名算法进行了大量优化，但是给修改带来了很大困难，不能在内核模块中直接修改签名函数，因为数据是经过转化的。
 
-内核模块文件位于 **OpenCL** 文件夹下
+一个算法类型分2个文件，一个模块文件和一个内核文件，具体以类型的数字为文件名定义，分别位于：
 
-修改算法可能还需要修改 **src/modules** 文件夹下的对应文件
+内核文件在 **OpenCL** 文件夹下
 
-读取和载入哈希文件在函数int module_hash_decode 中
+模块文件在 **src/modules** 文件夹下
+
+读取和载入哈希文件在模块文件函数 **int module_hash_decode** 中
 
 ```
 int module_hash_decode(...
@@ -39,7 +41,7 @@ int module_hash_decode(...
 }
 ```
 
-注意内核文件中这样的转换方法 hc_swap32 函数
+具体算法实现是在内核文件中，注意内核文件中这样的转换方法 hc_swap32
 
 ```
     const u32x a1 = hc_swap32 (ctx1.h[0]);
